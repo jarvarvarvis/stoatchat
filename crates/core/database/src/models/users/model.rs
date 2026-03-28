@@ -438,7 +438,7 @@ impl User {
                     discriminator: Some(
                         User::find_discriminator(
                             db,
-                            &username,
+                            &new_username,
                             Some((self.discriminator.to_string(), self.id.clone())),
                         )
                         .await?,

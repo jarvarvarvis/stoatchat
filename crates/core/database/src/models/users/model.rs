@@ -165,7 +165,7 @@ pub static DISCRIMINATOR_SEARCH_SPACE: Lazy<HashSet<String>> = Lazy::new(|| {
 });
 
 static BLOCKED_USERNAME_PATTERNS: Lazy<Regex> = Lazy::new(|| {
-    RegexBuilder::new("`{3}|((discord|rvlt|guilded)\\.gg|stoat\\.chat|https?:\\/\\/)")
+    RegexBuilder::new("`{3}|((discord|rvlt|guilded)\\.gg|(revolt|stoat)\\.chat|https?:\\/\\/)")
         .case_insensitive(true)
         .build()
         .unwrap()
@@ -868,7 +868,7 @@ mod tests {
     }
 
     #[async_std::test]
-    async fn username_sanitisation_hemoglyphs() {
+    async fn username_sanitisation_homoglyphs() {
         let username_homoglyphs = "𝔽𝕌Ňℕｙ";
 
         let username_homoglyphs_sanitised = User::sanitise_username(username_homoglyphs).await.unwrap();
@@ -883,6 +883,7 @@ mod tests {
         let username_discord = "discord.gg_test";
         let username_rvlt = "rvlt.gg_test";
         let username_guilded = "guilded.gg_test";
+        let username_revolt = "revolt.chat_test";
         let username_stoat = "stoat.chat_test";
         let username_http = "http://_test";
         let username_https = "https://_test";
@@ -893,6 +894,7 @@ mod tests {
         let username_discord_sanitised = User::sanitise_username(username_discord).await.unwrap();
         let username_rvlt_sanitised = User::sanitise_username(username_rvlt).await.unwrap();
         let username_guilded_sanitised = User::sanitise_username(username_guilded).await.unwrap();
+        let username_revolt_sanitised = User::sanitise_username(username_revolt).await.unwrap();
         let username_stoat_sanitised = User::sanitise_username(username_stoat).await.unwrap();
         let username_http_sanitised = User::sanitise_username(username_http).await.unwrap();
         let username_https_sanitised = User::sanitise_username(username_https).await.unwrap();
@@ -901,6 +903,7 @@ mod tests {
         assert_eq!(expected_username, username_discord_sanitised);
         assert_eq!(expected_username, username_rvlt_sanitised);
         assert_eq!(expected_username, username_guilded_sanitised);
+        assert_eq!(expected_username, username_revolt_sanitised);
         assert_eq!(expected_username, username_stoat_sanitised);
         assert_eq!(expected_username, username_http_sanitised);
         assert_eq!(expected_username, username_https_sanitised);

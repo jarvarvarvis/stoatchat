@@ -249,6 +249,7 @@ pub struct Pushd {
     pub production: bool,
     pub exchange: String,
     pub mass_mention_chunk_size: usize,
+    pub render_cache_time: usize,
 
     // Queues
     pub message_queue: String,
@@ -424,6 +425,7 @@ pub struct Settings {
     pub features: Features,
     pub sentry: Sentry,
     pub production: bool,
+    pub disable_events_dont_use: bool,
 }
 
 impl Settings {
